@@ -14,7 +14,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        CoreMLHelper.setModelImages(with: CGSize(width: 299/3.0, height: 299/3.0))
     }
 
     override func didReceiveMemoryWarning() {

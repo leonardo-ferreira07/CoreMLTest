@@ -10,6 +10,8 @@ import UIKit
 
 struct CoreMLHelper {
     
+    private static var imagesToModelSize: CGSize = CGSize(width: 0, height: 0)
+    
     private static func resize(image: UIImage, newSize: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
@@ -18,9 +20,13 @@ struct CoreMLHelper {
         return newImage
     }
     
+    static func setModelImages(with size: CGSize) {
+        imagesToModelSize = size
+    }
+    
     static func pixelBufferFromImage(image: UIImage) -> CVPixelBuffer {
         
-        let newImage = resize(image: image, newSize: CGSize(width: 299/3.0, height: 299/3.0))
+        let newImage = resize(image: image, newSize: imagesToModelSize)
         
         let ciimage = CIImage(image: newImage!)
         let tmpcontext = CIContext(options: nil)
